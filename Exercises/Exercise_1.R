@@ -58,12 +58,14 @@ V3 <- names(which.max(fahrenheit))
 #Hint: check the additonal arguments of the barplot() function
 par(mar=c(7,4,2,5))
 barplot(c(V1,V2),col= "#ca3f3f" , main = "Heat",space=0, las =2)
-
+ 
 # 3.1  Run the following code to sore the Celsius vector (this the the Fahrenheit vector after conversion)
 celsius = c(31.1, 1.7, 5.6, 28.9, 27.2, -1.1, -6.1, 25.6, 12.8, 17.2)
 
 # 3.2   Plot the Celsius temperatures against the Fahrenheit temperatures in a scatterplot
 plot(celsius~fahrenheit)
+text(celsius~fahrenheit,  labels= cities , cor = 0.4)
+
 
 # 3.3 Can you spot the outliers?
 # We manually flipped the locations of two elements in the Celsius vector (we did not touch the Fahrenheit vector). 

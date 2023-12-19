@@ -6,7 +6,7 @@ names(df)
 rdf <- subset(df , select = c(Title,Series.or.Movie ,Hidden.Gem.Score,IMDb.Score,Rotten.Tomatoes.Score,Boxoffice,Release.Date,Netflix.Release.Date,IMDb.Votes,Director))
 dim(rdf)
 names(rdf)
-View(head(rdf))
+View((rdf))
 
 aggregate(rdf$Boxoffice, list(rdf$Director), FUN=sum) 
 
