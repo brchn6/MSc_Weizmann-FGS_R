@@ -72,15 +72,8 @@ print(Decimal)
 Dec_num = 2024
 NumberOfDig <- (log2(Dec_num))
 VecOfDivition <- 2^(NumberOfDig:0)
-as.numeric(paste(as.character(rev(floor(VecOfDivition%%2))), collapse = ""))
-
-Dec_num = 2024
-Dec_num <- unlist(strsplit(as.character(Dec_num),""))
-DecimalNumbersList <- c(0:9)
-BinNumbersList <- c(0,1,10,11,100,101,110,111,1000,1001)
-names(DecimalNumbersList) <- BinNumbersList
-Bin_num <- paste(names(DecimalNumbersList)[as.numeric(Dec_num)+1], collapse = "")
-print(Bin_num) #[1] "10010100"
+Bin_num <-as.numeric(paste(as.character(rev(floor(VecOfDivition%%2))), collapse = ""))
+print(Bin_num) #[1] 11111101000
 
 ### Convert DNA string into RNA string ###
 # Convert the DNA string in the variable DNA.string to an RNA string.
