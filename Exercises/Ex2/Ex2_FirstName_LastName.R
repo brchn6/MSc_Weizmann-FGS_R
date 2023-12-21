@@ -52,12 +52,18 @@ Binary = 1101
 
 #from bin to vector od numeric
 VectorOfNum <- as.vector(as.numeric(unlist((strsplit(as.character(Binary) , "")))))
+#getting length of bin num and substractin 1 (couse i need to sthar form 0 up to the length)
 length1 <- length(VectorOfNum) -1
+#new vecor from 0 to the tke length -1
 IndexOfLength <- as.numeric(as.vector(0:length1))
+#new var names CoeVar stand as the var holds the result of this arithmetics operation
 CoeVar <- 2 ^ IndexOfLength
+#continu with the math
 VectorOfNum <- VectorOfNum * CoeVar
+#getiing the decimal using sum and store it 
 Decimal = sum(VectorOfNum)
 print(Decimal)
+
 ###Convert a decimal number into a binary number ### 
 # for further explanation: https://www.youtube.com/watch?v=1TxAm9931TE
 # Write a code that converts the decimal number stored inside the variable "Dec_num" into a binary number. 
