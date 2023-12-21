@@ -91,16 +91,12 @@ print(RNA.string)
 # use getwd() to see where is your current working directory. https://www.youtube.com/watch?v=TDKyTT1kAMQ 
 # use setwd() to set a new working directory. https://www.youtube.com/watch?v=TDKyTT1kAMQ
 
-codon.to.aa = readRDS('Exercises/Ex2/codons_to_aa.Rds')
 # Convert the DNA string in the variable DNA.string to an amino acids string. 
 # The first codon should be ATG then ATC, TCT... 
 # Store the solution in a variable called aa.string and print it
+codon.to.aa = readRDS('Exercises/Ex2/codons_to_aa.Rds')
 RNA.stringTo3 <- gsub("(.{3})","\\1 ", RNA.string)
 RNA.stringTo3 <- unlist(strsplit(RNA.stringTo3 ," "))
-AA <- codon.to.aa
-codon.to.aa <- chartr(DNA.Letters, RNA.Letters, names(codon.to.aa))
-names(AA) <- codon.to.aa
-RNA.stringTo3[names(AA)]
-
-aa.string = ???
+names(codon.to.aa) <- chartr(DNA.Letters, RNA.Letters, names(codon.to.aa))
+aa.string <- codon.to.aa[RNA.stringTo3]
 print(aa.string)
