@@ -49,15 +49,14 @@ print(GAME)
 # Save the solution inside the variable "Decimal" and print it. 
 # Make sure your code is general enough, and can convert any binary number.
 Binary = 1101
+
 #from bin to vector od numeric
-VectorOfNum <- (as.vector(as.numeric(unlist((strsplit(as.character(Binary) , ""))))))
-
-
-
-
-
-[ENTER CODE HERE]
-Decimal = ???
+VectorOfNum <- as.vector(as.numeric(unlist((strsplit(as.character(Binary) , "")))))
+length1 <- length(VectorOfNum) -1
+IndexOfLength <- as.numeric(as.vector(0:length1))
+CoeVar <- 2 ^ IndexOfLength
+VectorOfNum <- VectorOfNum * CoeVar
+Decimal = sum(VectorOfNum)
 print(Decimal)
 ###Convert a decimal number into a binary number ### 
 # for further explanation: https://www.youtube.com/watch?v=1TxAm9931TE
