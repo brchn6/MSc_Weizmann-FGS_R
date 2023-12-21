@@ -70,45 +70,40 @@ print(Decimal)
 # Save the solution inside the variable "Bin_num" and print it. 
 # Make sure your code is general enough, and can convert any decimal number.
 
-
 Dec_num = 2024
 Dec_num <- unlist(strsplit(as.character(Dec_num),""))
 DecimalNumbersList <- c(0:9)
 BinNumbersList <- c(0,1,10,11,100,101,110,111,1000,1001)
 names(DecimalNumbersList) <- BinNumbersList
 Bin_num <- paste(names(DecimalNumbersList)[as.numeric(Dec_num)+1], collapse = "")
-print(Bin_num)
+print(Bin_num) #[1] "10010100"
 
 ### Convert DNA string into RNA string ###
 # Convert the DNA string in the variable DNA.string to an RNA string.
 # Change A to U, T to A, G to C and C to G
 # Store the solution in a variable called RNA.string and print it. No need to worry about the reverse complement.
-[ENTER CODE HERE]
 DNA.string = "ATGATCTCTGATATTCAAAACCACTCAGATGATGAGTCAAAAAATAATAAACCTTTCTTATTGTTTATGATAAATAATAATTGA"
-
-RNA.string =???
+DNA.Letters = ("AGCT")
+RNA.Letters = ("UCGA")
+RNA.string <- chartr(DNA.Letters, RNA.Letters, DNA.string)
 print(RNA.string)
+
 ### Convert RNA string into a protein ###
 # Run the following lines of code. The code will generate a named vector you can use to convert codons into amino acids
 # Make sure your file is in the same folder as #the RDS file, or the working directory is the same as the RDS file
 # use getwd() to see where is your current working directory. https://www.youtube.com/watch?v=TDKyTT1kAMQ 
 # use setwd() to set a new working directory. https://www.youtube.com/watch?v=TDKyTT1kAMQ
 
-codon.to.aa = readRDS("codons_to_aa.Rds")
-
+codon.to.aa = readRDS('Exercises/Ex2/codons_to_aa.Rds')
 # Convert the DNA string in the variable DNA.string to an amino acids string. 
 # The first codon should be ATG then ATC, TCT... 
 # Store the solution in a variable called aa.string and print it
-
-[ENTER CODE HERE]
+RNA.stringTo3 <- gsub("(.{3})","\\1 ", RNA.string)
+RNA.stringTo3 <- unlist(strsplit(RNA.stringTo3 ," "))
+AA <- codon.to.aa
+codon.to.aa <- chartr(DNA.Letters, RNA.Letters, names(codon.to.aa))
+names(AA) <- codon.to.aa
+RNA.stringTo3[names(AA)]
 
 aa.string = ???
 print(aa.string)
-
-
-
-
-
-
-
-
