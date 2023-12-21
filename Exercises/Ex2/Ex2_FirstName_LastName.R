@@ -3,7 +3,7 @@
 # IMPORTANT!: Don't use CHATGPT to solve the questions. Consult one of the TA instead. 
 # Please submit the assignment file according to the template Ex2_First Name_Last Name.R
 # In this exercise, use only functions you have learned in class so far in addition to these functions:
-# mathematical operators, +-*^ and %%, and logical operators, == != > < >= <=, are allowed
+# mathematical operators, +-*^/ and %%, and logical operators, == != > < >= <=, are allowed
 # grepl()
 # floor()
 # ceilling()
@@ -69,6 +69,10 @@ print(Decimal)
 # Write a code that converts the decimal number stored inside the variable "Dec_num" into a binary number. 
 # Save the solution inside the variable "Bin_num" and print it. 
 # Make sure your code is general enough, and can convert any decimal number.
+Dec_num = 2024
+NumberOfDig <- (log2(Dec_num))
+VecOfDivition <- 2^(NumberOfDig:0)
+as.numeric(paste(as.character(rev(floor(VecOfDivition%%2))), collapse = ""))
 
 Dec_num = 2024
 Dec_num <- unlist(strsplit(as.character(Dec_num),""))
