@@ -49,7 +49,6 @@ print(GAME)
 # Save the solution inside the variable "Decimal" and print it. 
 # Make sure your code is general enough, and can convert any binary number.
 Binary = 1101
-
 #from bin to vector od numeric
 VectorOfNum <- as.vector(as.numeric(unlist((strsplit(as.character(Binary) , "")))))
 #getting length of bin num and substractin 1 (couse i need to sthar form 0 up to the length)
@@ -64,16 +63,22 @@ VectorOfNum <- VectorOfNum * CoeVar
 Decimal = sum(VectorOfNum)
 print(Decimal)
 
+
 ###Convert a decimal number into a binary number ### 
 # for further explanation: https://www.youtube.com/watch?v=1TxAm9931TE
 # Write a code that converts the decimal number stored inside the variable "Dec_num" into a binary number. 
 # Save the solution inside the variable "Bin_num" and print it. 
 # Make sure your code is general enough, and can convert any decimal number.
-[ENTER CODE HERE]
-Dec_num = 2024
 
-Bin_num = ???
+
+Dec_num = 2024
+Dec_num <- unlist(strsplit(as.character(Dec_num),""))
+DecimalNumbersList <- c(0:9)
+BinNumbersList <- c(0,1,10,11,100,101,110,111,1000,1001)
+names(DecimalNumbersList) <- BinNumbersList
+Bin_num <- paste(names(DecimalNumbersList)[as.numeric(Dec_num)+1], collapse = "")
 print(Bin_num)
+
 ### Convert DNA string into RNA string ###
 # Convert the DNA string in the variable DNA.string to an RNA string.
 # Change A to U, T to A, G to C and C to G
