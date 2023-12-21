@@ -40,14 +40,23 @@ sum(as.numeric(df$NumericListAsStrSplit), na.pass= T)
 
 GAME = ???
 print(GAME)
+
+
+
 ### Convert a binary number into a decimal number ### 
 # For further explanation see the video:  https://www.youtube.com/watch?v=VLflTjd3lWA
 # Write a code that converts the binary number stored inside the variable "Binary" into a decimal number.
 # Save the solution inside the variable "Decimal" and print it. 
 # Make sure your code is general enough, and can convert any binary number.
-[ENTER CODE HERE]
 Binary = 1101
+#from bin to vector od numeric
+VectorOfNum <- (as.vector(as.numeric(unlist((strsplit(as.character(Binary) , ""))))))
 
+
+
+
+
+[ENTER CODE HERE]
 Decimal = ???
 print(Decimal)
 ###Convert a decimal number into a binary number ### 
