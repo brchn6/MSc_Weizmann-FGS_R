@@ -39,11 +39,12 @@ ConditionCount <- ConditionCount + (FirstDigFromNumList+SecondDigFromNumList == 
 #4th condition
 ConditionCount <- ConditionCount + abs((FirstDigFromNumList - SecondDigFromNumList) == 7) 
 
-#assining Bomm as the number with more then 2 in condition counter
+#assigning "BOOM" as the number with more then 2 in condition counter
 NumericList[ConditionCount >= 2] = "BOOM"
-GAME <- NumericList
-print(GAME)
 
+#assigning to Game and printing
+GAME <- NumericList # nolint
+print(GAME)
 
 ### Convert a binary number into a decimal number ### 
 # For further explanation see the video:  https://www.youtube.com/watch?v=VLflTjd3lWA
