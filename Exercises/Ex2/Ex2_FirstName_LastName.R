@@ -80,9 +80,12 @@ print(Bin_num) #[1] 11111101000
 # Change A to U, T to A, G to C and C to G
 # Store the solution in a variable called RNA.string and print it. No need to worry about the reverse complement.
 DNA.string = "ATGATCTCTGATATTCAAAACCACTCAGATGATGAGTCAAAAAATAATAAACCTTTCTTATTGTTTATGATAAATAATAATTGA"
-DNA.Letters = ("AGCT")
-RNA.Letters = ("UCGA")
-RNA.string <- chartr(DNA.Letters, RNA.Letters, DNA.string)
+DNA.Letters <- c("A","G","C","T")
+RNA.Letters <- c("U","C","G","A")
+DNA.string <- unlist(strsplit(DNA.string , ""))
+names(RNA.Letters) <- DNA.Letters
+RNA.string <- RNA.Letters[DNA.string]
+RNA.string <- paste(RNA.string, collapse = "")
 print(RNA.string)
 
 ### Convert RNA string into a protein ###
@@ -94,6 +97,7 @@ print(RNA.string)
 # Convert the DNA string in the variable DNA.string to an amino acids string. 
 # The first codon should be ATG then ATC, TCT... 
 # Store the solution in a variable called aa.string and print it
+
 codon.to.aa = readRDS('Exercises/Ex2/codons_to_aa.Rds')
 RNA.stringTo3 <- gsub("(.{3})","\\1 ", RNA.string)
 RNA.stringTo3 <- unlist(strsplit(RNA.stringTo3 ," "))
