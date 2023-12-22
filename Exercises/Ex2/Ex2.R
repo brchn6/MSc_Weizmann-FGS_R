@@ -111,6 +111,7 @@ print(RNA.string)
 # Store the solution in a variable called aa.string and print it
 
 #importing the AA dict
+#Note!!@!@!@!@ - assuming the file is in getwd!!! 
 codon.to.aa = readRDS('Exercises/Ex2/codons_to_aa.Rds')
 
 #using strsplit with weird syntax to separate every three character 
