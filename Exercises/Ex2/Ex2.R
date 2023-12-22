@@ -19,28 +19,30 @@
 # Conditions: divisible by 7 (e.g., 14), has the digit 7 (e.g., 17 ), the digits sum up to seven (e.g., 25) or the absolute difference between the digits is 7 (e.g., 92 and 29). 
 # save the final vector in the variable "GAME" and print it.
 NumericList <- 1:99 #making a list of number from 1 to 99
-LogisticValue <- (NumericList%%7 == 0) # asking a logistic Q and hold it under var # nolint
-NumericList[LogisticValue] <- "BOOM"
 
-LogisticValue <- (grepl("7",NumericList)) # asking a logistic Q and hold it under var # nolint
-NumericList[LogisticValue] <- "BOOM"
+#getting the First and srcond muners from the vector
+SecondDigFromNumList <- NumericList%%10 
+FirstDigFromNumList <- (NumericList %/% 10) # nolint
 
-NumericList <- 1:99 #making a list of number from 1 to 99
-df<- as.data.frame(NumericList)
-df$NumericListAsStr <- as.character(df$NumericList)
-df$NumericListAsStrSplit <- strsplit(df$NumericListAsStr,"")
-head(df)
-# df$NumericListAsStrSplit <- gsub("[c(\"]", "",paste(df$NumericListAsStrSplit))
-# df$NumericListAsStrSplit<- gsub("[)]", "",df$NumericListAsStrSplit)
-str(df[,'NumericListAsStrSplit'])
+#counter of conditions
+ConditionCount <- rep(0 , length(NumericList))
 
-# df$SumNumericListAsStrSplit <- 
-class(df$NumericListAsStrSplit)
-sum(as.numeric(df$NumericListAsStrSplit), na.pass= T)
+#1st condition
+ConditionCount <- ConditionCount + (NumericList%%7 == 0)
 
-GAME = ???
+#2nd condition
+ConditionCount <- ConditionCount + (grepl("7",NumericList)) # asking a logistic Q and hold it under var # nolint
+
+#3rd condition
+ConditionCount <- ConditionCount + (FirstDigFromNumList+SecondDigFromNumList == 7) # nolint
+
+#4th condition
+ConditionCount <- ConditionCount + abs((FirstDigFromNumList - SecondDigFromNumList) == 7) 
+
+#assining Bomm as the number with more then 2 in condition counter
+NumericList[ConditionCount >= 2] = "BOOM"
+GAME <- NumericList
 print(GAME)
-
 
 
 ### Convert a binary number into a decimal number ### 
@@ -72,19 +74,29 @@ print(Decimal)
 Dec_num = 2024
 NumberOfDig <- (log2(Dec_num))
 VecOfDivition <- 2^(NumberOfDig:0)
-Bin_num <-as.numeric(paste(as.character(rev(floor(VecOfDivition%%2))), collapse = ""))
+LengthOfBinNum <- length(floor(VecOfDivition%%2))
+LengthOfBinNumIndex <- c(LengthOfBinNum:1)
+Bin_num <- floor(VecOfDivition%%2)[LengthOfBinNumIndex]##super impotent - this is the way to nit use rev!!!
 print(Bin_num) #[1] 11111101000
+
 
 ### Convert DNA string into RNA string ###
 # Convert the DNA string in the variable DNA.string to an RNA string.
 # Change A to U, T to A, G to C and C to G
 # Store the solution in a variable called RNA.string and print it. No need to worry about the reverse complement.
+
+#getting DNA seq
 DNA.string = "ATGATCTCTGATATTCAAAACCACTCAGATGATGAGTCAAAAAATAATAAACCTTTCTTATTGTTTATGATAAATAATAATTGA"
+
+#making 2 vector 
 DNA.Letters <- c("A","G","C","T")
 RNA.Letters <- c("U","C","G","A")
-DNA.string <- unlist(strsplit(DNA.string , ""))
+
+#making dictionary
 names(RNA.Letters) <- DNA.Letters
-RNA.string <- RNA.Letters[DNA.string]
+
+DNA.stringUnlist <- unlist(strsplit(DNA.string , ""))
+RNA.string <- RNA.Letters[DNA.stringUnlist]
 RNA.string <- paste(RNA.string, collapse = "")
 print(RNA.string)
 
@@ -98,9 +110,15 @@ print(RNA.string)
 # The first codon should be ATG then ATC, TCT... 
 # Store the solution in a variable called aa.string and print it
 
+#importing the AA dict
 codon.to.aa = readRDS('Exercises/Ex2/codons_to_aa.Rds')
-RNA.stringTo3 <- gsub("(.{3})","\\1 ", RNA.string)
-RNA.stringTo3 <- unlist(strsplit(RNA.stringTo3 ," "))
-names(codon.to.aa) <- chartr(DNA.Letters, RNA.Letters, names(codon.to.aa))
-aa.string <- codon.to.aa[RNA.stringTo3]
+
+#using strsplit with weird syntax to separate every three character 
+DNA.stringTo3 <- unlist(strsplit(DNA.string, "(?<=.{3})",perl = T))
+
+#assigning to var the full aminoA seq 
+#[1:(length(DNA.stringTo3)-1) is to not have the "stop" at the end of the seq
+aa.string <- paste(codon.to.aa[DNA.stringTo3][1:(length(DNA.stringTo3)-1)], collapse = "")
+
+#printtttt
 print(aa.string)
