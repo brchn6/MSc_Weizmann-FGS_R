@@ -21,9 +21,8 @@
 NumericList <- 1:99 #making a list of number from 1 to 99
 
 #getting the First and srcond muners from the vector
-SecondDigFromNumList <- NumericList%%10 
 FirstDigFromNumList <- (NumericList %/% 10) # nolint
-
+SecondDigFromNumList <- NumericList%%10 
 #counter of conditions
 ConditionCount <- rep(0 , length(NumericList))
 
@@ -73,8 +72,7 @@ print(Decimal)
 # Save the solution inside the variable "Bin_num" and print it. 
 # Make sure your code is general enough, and can convert any decimal number.
 Dec_num = 2024
-NumberOfDig <- (log2(Dec_num))
-VecOfDivition <- 2^(NumberOfDig:0)
+VecOfDivition <- (2^(log2(Dec_num):0))
 LengthOfBinNum <- length(floor(VecOfDivition%%2))
 LengthOfBinNumIndex <- c(LengthOfBinNum:1)
 Bin_num <- floor(VecOfDivition%%2)[LengthOfBinNumIndex]##super impotent - this is the way to nit use rev!!!
