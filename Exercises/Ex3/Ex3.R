@@ -59,7 +59,7 @@ print(sum(petal_length>median(petal_length)))
 
 # 1.5. Create a vector `petal_length.m` that contains the elements of 
 #      petal_length that are greater or equal to the mean of petal_length
-petal_length.m <- which(petal_length>median(petal_length))
+petal_length.m <- which(petal_length>mean(petal_length))
 
 # 1.6. Plot histogram of petal_length.m with 20 breaks.(use the function hist())
 hist(petal_length.m ,  breaks=20)
@@ -77,21 +77,40 @@ iris.large <- df[df$seplen >5.5,]
 # species (column 'species') in the subset dataframe 'iris.large'
 # Hint: you can combine with sum()
 #option1:
-sumspecies<-table(iris.large$species)
-#simple visualization
-# barplot(sumspecies)
+sumspecies <- c()
+levelsNmaes <- levels(iris.large$species)
+for (i in 1:length(levelsNmaes)) {
+   # sumspecies <- append(sumspecies,c(as.character(i),nrow(iris.large[iris.large$species == i,])))
+   sumspecies[i] <- sum(iris.large$species == levelsNmaes[i])
+   }
 
 #option2:
-sumspecies <- list()
-for (i in levels(factor(iris.large$species))){
-   sumspecies <- append(sumspecies,c(as.character(i),nrow(iris.large[iris.large$species == i,])))
-   }
-unlist(sumspecies)
+sumspecies <- c()
+for (i in levels(iris.large$species)){
+   sumspecies <- append(sumspecies,sum(iris.large$species == i))
+}
 
 
 # Name the elements of the vector 'sumspecies' according to the corresponding species
-names(sumspecies)
+names(sumspecies) <- levelsNmaes
 
 # 2.5. Plot a barplot of the values of `sumspecies`. Use the argument `names.arg`
 #	   to input the species names as labels for the bars.
 barplot(sumspecies)
+
+         #option2:
+         sumspecies <- table(iris.large$species)
+         # simple visualization
+         barplot(sumspecies)
+
+
+
+#option3:
+table(iris.large$species)
+#option2:
+
+unique(iris.large$species)
+levels(iris.large$species)
+
+
+sumspecies
