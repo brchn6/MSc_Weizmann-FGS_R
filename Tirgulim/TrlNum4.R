@@ -45,6 +45,39 @@ strIwant ="ColName"
 numericCount= c(1:length(SomeList))
 paste(strIwant ,numericCount)
 
+iris
+apply(iris[1:4], 2, mean)
+someFun <- function(x) {
+  paste("The of this col " "is : " x[])
+}
+
+
+lapply(iris[1:4],2 , FUN = function(x) {
+  paste("The mean of this col is:" ,mean(x, na.rm=FALSE))
+})
+class(lapply(iris[1:4], mean))
+class(sapply(iris[1:4], mean))
+x <- iris[1:4]
+names(x)
+
+class(tapply(iris[1:4], mean))
+tapply(iris[1:4], unlist(unique(iris[5])), mean)
 
 
 
+
+
+
+
+str(mtcars)
+barplot(apply(mtcars , 2 , FUN = function(x) {(min(x)/max(x))}))
+exscludedCol <- c(mtcars$vs, mtcars$am)
+barplot(apply(mtcars[-mtcars$vs,-mtcars$am] , 1 , min))
+barplot(apply(mtcars[-exscludedCol] , 1 , min))
+apply(mtcars[-exscludedCol] , 1 , min)
+names(PlantGrowth)
+tapply(PlantGrowth, vector(PlantGrowth$group) , FUN = mean)
+barplot(tapply(PlantGrowth$weight ,PlantGrowth$group , FUN = mean))
+barplot(apply(mtcars[-mtcars$vs,-mtcars$am] , 1 , min))
+PlantGrowth$group
+?tapply
