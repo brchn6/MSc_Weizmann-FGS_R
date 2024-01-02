@@ -81,3 +81,9 @@ barplot(tapply(PlantGrowth$weight ,PlantGrowth$group , FUN = mean))
 barplot(apply(mtcars[-mtcars$vs,-mtcars$am] , 1 , min))
 PlantGrowth$group
 ?tapply
+
+
+
+
+n<- 1:99
+stringr::str_split(string = as.character(n) , col)
