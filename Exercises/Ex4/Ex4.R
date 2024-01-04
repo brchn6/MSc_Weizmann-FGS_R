@@ -36,43 +36,47 @@ logical_list <-as.logical(unlist(lapply(diverse_list,Filter, f= is.logical)))
 #use sapply (once once on each of the 3 lists above) to  check that your previous code worked (i.e. find the class of each element)
 #for numeric
 sapply(numeric_list,FUN = class) 
-sapply(charecter_list,FUN = class)
-sapply(logical_list,FUN = class)
-
 #for character
 YOUR_CODE
+sapply(charecter_list,FUN = class)
 #for logical
-YOUR_CODE
-
-
+sapply(logical_list,FUN = class)
 
 # 2. load DATA #######################################################################
 
 # Download the file `worldRankings.Rdata` from the moodle 
 # and load it using load(). 
-load("worldRankings.Rdata")
+pathToData <- file.path(getwd() ,"Exercises/Ex4/worldRankings.Rdata")
+load(file = pathToData)
+worldrankings
+
 # You should now be able to see a small part of the table using the code below
 worldrankings[1:3, 1:5]
 
 # 3. FOR loop ########################################
 # - Initialize a list called 'numCols'. Make it as long as the number of columns
 # in `worldrankings`, and make each element NA.
-numCols <- YOUR_CODE
+numCols <-c()
+for (i in 1:length(colnames(worldrankings))){
+  numCols <- append(numCols,NA)
+}
 print(numCols)
 
 # 3.1 Name the elements in the list by the column names of `worldrankings`
-YOUR_CODE
+names(numCols) <-colnames(worldrankings)
 print(numCols)
 
 # 3.2 Use a "for loop" to store logical values in the 'numCols'list (replace the NAs).  if the adjacent column of `worldrankings`
 # is numeric store TRUE and FALSE if it is not. 
 
-for(YOUR_CODE){
-  YOUR_CODE
+for(value in 1:ncol(worldrankings)){
+  if (class(worldrankings[[value]]) == class(numeric())) {
+    numCols[value] <- T
+  }else {
+     numCols[value] <- F
+  }
 }
-
 print(numCols)
-
 
 
 # 3.compare loop to lapply() ######################################
@@ -155,6 +159,3 @@ barplot(YOUR_CODE)
 
 
 
-pathToData <- file.path(getwd() ,"worldRankings.Rdata")
-load(file = pathToData)
-worldrankings
