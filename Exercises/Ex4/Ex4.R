@@ -26,13 +26,19 @@
 diverse_list  <- list(42 , 100:109 , "Banana", "Apple", Monkey = T , Babon = F)
 
 # use lapply to subset the list into 3 different lists, each one with 2 elements of the same class. If you wish, you can use the functions is.numeric() is.character() and is.logical
-numeric_list <- YOUR_CODE
-charecter_list <- YOUR_CODE
-logical_list <- YOUR_CODE
+#O1:
+numeric_list <-lapply(diverse_list,Filter, f= is.numeric)
+#O2:
+numeric_list <-as.numeric(unlist(lapply(diverse_list, function(x) x[sapply(x, is.numeric)])))
+charecter_list <-unlist(lapply(diverse_list,Filter, f= is.character))
+logical_list <-as.logical(unlist(lapply(diverse_list,Filter, f= is.logical)))
 
 #use sapply (once once on each of the 3 lists above) to  check that your previous code worked (i.e. find the class of each element)
 #for numeric
-YOUR_CODE
+sapply(numeric_list,FUN = class) 
+sapply(charecter_list,FUN = class)
+sapply(logical_list,FUN = class)
+
 #for character
 YOUR_CODE
 #for logical
