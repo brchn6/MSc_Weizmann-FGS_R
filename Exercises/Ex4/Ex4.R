@@ -109,24 +109,22 @@ all(numCols == numCols_2)
 # - Using the 'numCols_2' logical vector to subset the 'worldrankings' dataframe
 #   to a new dataframe called 'wR_num', containing only columns with numeric 
 #   values.
-wR_num <- YOUR_CODE
-
+wR_num <- worldrankings[numCols]
 
 #use apply to check the class of each column to check the previous code
-YOUR_CODE
-
+apply(wR_num, 2, class)
 
 # - Use apply() to compute the number of observations available in each column 
 #   of the 'wR_num' dataframe that are not NA. 
-n_numeric_obs <- YOUR_CODE
+n_numeric_obs <- apply(wR_num, 2 , function(x) {sum(!is.na(x))})
 print(n_numeric_obs)
 
 # - Sort the resulting number of observations vector with sort()  
-n_numeric_obs_sorted <- YOUR_CODE
+n_numeric_obs_sorted <- sort(n_numeric_obs)
 print(n_numeric_obs_sorted)
 
 #plot a barplot of the number of observations per variable.  
-barplot(YOUR_CODE)
+barplot(n_numeric_obs_sorted)
 
 
 
@@ -138,9 +136,13 @@ barplot(YOUR_CODE)
 #   'meanAndMed', as a vector of length two.
 #   NOTE: As the data has many NA values you should use the argument
 #   'na.rm = TRUE' in mean() and median() to remove them from the calculation.
-meanAndMed <- lapply(YOUR_CODE)
+meanAndMed <- lapply(wR_num,function(x) {
+  MeanOfX <- mean(x , na.rm =TRUE)
+  MedianOfX <- median(x , na.rm =TRUE)
+  meanAndMed <- c("Mean"= MeanOfX,"Median"= MedianOfX)
+  return(meanAndMed)
+})
 print(meanAndMed)
-
 
 
 # 7 do.call() #######################################
@@ -148,17 +150,23 @@ print(meanAndMed)
 # - Name the columns `mean` and `median`.
 # - Use the transpose function (`t()`) to transpose the matrix so that
 # the rowa are the mean and median and the columns correspond to the rW_num columns
-YOUR_CODE
-print(stat_mat)
-
+stat_mat <- t(t(as.data.frame((meanAndMed))))
 
 #7.1 plot
 # - Create a barplot() of the mean and median using the transposed matrix stat_mat.
 # - Use the argument beside=TRUE to make the bars grouped and not stacked
 # - Make the bar names visible using the arguments las and cex.names.
 # - Change to Y axis scale to log using the argument log="y"
-barplot(YOUR_CODE)
-
-
-
-
+?barplot(stat_mat, lac= )
+barplot(stat_mat,
+main = "barplot() of the mean and median",
+xlab = "columns",
+ylab = "Log values",
+names.arg = names(stat_mat),
+# col = "#8d6565a2",
+col = c(rgb(155, 184, 205, maxColorValue=255), rgb(177, 195, 129, maxColorValue=255)),
+horiz = F,
+beside=F,
+log ="y",
+legend.text =T	 )
+?barplot
