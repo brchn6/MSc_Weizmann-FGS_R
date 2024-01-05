@@ -157,7 +157,7 @@ stat_mat <- t(t(as.data.frame((meanAndMed))))
 # - Use the argument beside=TRUE to make the bars grouped and not stacked
 # - Make the bar names visible using the arguments las and cex.names.
 # - Change to Y axis scale to log using the argument log="y"
-par(mar=c(7,7,7,7))
+par(mar=c(10,7,7,7))
 barplot(stat_mat,
 main = "barplot of the mean and median",
 cex.names = names(stat_mat),
