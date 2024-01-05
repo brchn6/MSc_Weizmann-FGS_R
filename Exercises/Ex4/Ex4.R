@@ -152,6 +152,7 @@ print(meanAndMed)
 # the rowa are the mean and median and the columns correspond to the rW_num columns
 stat_mat <- t(t(as.data.frame((meanAndMed))))
 
+
 #7.1 plot
 # - Create a barplot() of the mean and median using the transposed matrix stat_mat.
 # - Use the argument beside=TRUE to make the bars grouped and not stacked
@@ -163,7 +164,9 @@ main = "barplot of the mean and median",
 cex.names = names(stat_mat),
 col = c(rgb(155, 184, 205, maxColorValue=255), rgb(177, 195, 129, maxColorValue=255)),
 beside=T,
-log ="y",
+log ='y',
 las =2,
 legend.text = T,
-args.legend = list(x = "topleft"))
+args.legend = list(x = "topright"), 
+)
+mtext("Log Scale of Mean and Median", side = 2, line = 4)
