@@ -36,8 +36,7 @@ logical_list <-as.logical(unlist(lapply(diverse_list,Filter, f= is.logical)))
 #use sapply (once once on each of the 3 lists above) to  check that your previous code worked (i.e. find the class of each element)
 #for numeric
 sapply(numeric_list,FUN = class) 
-#for character
-YOUR_CODE
+#for characterYOUR_CODE
 sapply(charecter_list,FUN = class)
 #for logical
 sapply(logical_list,FUN = class)
@@ -89,7 +88,13 @@ print(numCols)
 # case is that the output will automatically be named using the column names of
 # `worldrankings`; as opposed to using the 'for loop' which doesn't consider 
 # this automatically.
-numCols_2 <- YOUR_CODE
+numCols_2 <-unlist( lapply(worldrankings[1:1,],function(x) {
+  if (class(x) == "numeric"){
+    return (T)
+  }else {
+     return (F)
+  }
+}))
 print(numCols_2)
 
 
@@ -98,9 +103,7 @@ print(numCols_2)
 # - compare the values of this vector with the values of numCols_2 to make sure 
 # they are identical. The final output should be 'TRUE'.
 # Hint: The function `all()` checks if all the elements in a logical vector are TRUE. 
-YOUR_CODE
-
-
+all(numCols == numCols_2)
 
 # 5 apply() #################################
 # - Using the 'numCols_2' logical vector to subset the 'worldrankings' dataframe
