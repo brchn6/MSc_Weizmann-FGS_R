@@ -48,9 +48,9 @@ MyMean <- function(v) {
   } 
   else if (sum(is.na(v) >=1)) {
      v <- v[!is.na(v)]
-  }if {
-
-  }
+  # }if {
+    
+    }
   else 
   {
   sumArgs <- sum(v)
