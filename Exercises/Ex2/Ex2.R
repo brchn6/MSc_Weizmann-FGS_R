@@ -50,9 +50,9 @@ print(GAME)
 # Write a code that converts the binary number stored inside the variable "Binary" into a decimal number.
 # Save the solution inside the variable "Decimal" and print it. 
 # Make sure your code is general enough, and can convert any binary number.
-Binary = 1101
-#from bin to vector od numeric
-VectorOfNum <- as.vector(as.numeric(unlist((strsplit(as.character(Binary) , "")))))
+Binary = "11001001010"
+#from bin to vector to numeric
+VectorOfNum <- as.vector(rev(as.numeric(unlist((strsplit(as.character(Binary) , ""))))))
 #getting length of bin num and substractin 1 (couse i need to sthar form 0 up to the length)
 length1 <- length(VectorOfNum) -1
 #new vecor from 0 to the tke length -1
