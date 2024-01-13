@@ -6,7 +6,7 @@
 
 # In this exercise you will explore enzymatic kinetics.
 # Load the data. Run this line of code:
-ONPG.df = readRDS("ONPG.rds")
+ONPG.df = readRDS("Exercises/Ex5/ONPG.rds")
 # Background about the OPNG.df, adopted from the renz pacakge:
 #In the University of Málaga, Enzymology is a second-year subject that all Biochemistry students 
 #must take. In the context of this subject, students carry out different experiments in the 
@@ -18,7 +18,7 @@ ONPG.df = readRDS("ONPG.rds")
 # as were presented in their reports.
 
 # Load the following function:
-MM.function = readRDS("MM.function.rds")
+MM.function = readRDS("Exercises/Ex5/MM.function.rds")
 
 # This function receives two-columns data and analyzed it using the non-linear least-squares fitting of the Michaelis-Menten equation.
 # For more information see: https://www.youtube.com/watch?v=7u2MkbsE_dw
@@ -56,45 +56,42 @@ Analysis.results$data
 # Look at the data. See that you understand it.
 # Explore if there is any different between the groups.
 # Print the observed Km and Vmax parameters for each group
-OPNG_VectorOfConcentrations <- ONPG.df[,1]
-for (index in 1:length(OPNG_DF_OfGroups)){
-  data <- as.data.frame(cbind(OPNG_VectorOfConcentrations , OPNG_DF_OfGroups[index]))
-  GroupName <- names(OPNG_DF_OfGroups[index])
-  Analysis.results = MM.function(data)
-  # In "parameters" you can find the calculate Km and Vm (Vmax)
-  print(paste("Group name:" ,GroupName))
-  print(Analysis.results$parameters)
-  # In "data" you can find a summary of the experiment, substrate concentrations, observed values and fitted values
-  Analysis.results$data
-}
-
+ONPGGroupNames <- names(ONPG.df[-1])
+Mainlist <- lapply(ONPGGroupNames , function(ONPGGroupNames) {
+  result <-MM.function(data.frame(c(ONPG.df['ONPG'], ONPG.df[ONPGGroupNames])))
+  return(result$parameters)
+})
+print(Mainlist)
 # Naturally there are differences in the observed Km and Vmax. 
 # Please plot the mean Km and the mean Vmax of all groups as a bar plot using ggplot.
 # Add a text above the bars to indicate the value
 # Hint: use geom_text, with nudge_y = 1.5
 # Use Ex 5 2023-24 plot 1.pdf to see the expected result
-
-ENTER CODE HERE
-
+library(ggplot2, help, pos = 2, lib.loc = NULL)
+col_means <- apply(do.call(rbind, Mainlist), 2, mean)
+col_means <- data.frame(parameters = names(col_means), avg = col_means)
+p<- ggplot(data = col_means, aes (x= parameters ,y = avg))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label=avg), nudge_y = 5)
+p
 # Q2 #
-# Now days it is a common request to see  points that represent each observation.
+# Now days it is a common request to see points that represent each observation.
 # Add them to the plot (using ggplot).
 # You will need to another layer of points using geom_point. 
 # In geom text use nudge_y = 2
 # look at Ex 5 2023-24 plot 2 to see the expected plot
-
-ENTER CODE HERE
-
-
+df <- as.data.frame(do.call(rbind, Mainlist))
+p <- p + geom_point(data = df, aes(x = "Km", y = Km),size= 2.3)
+p <-p + geom_point(data = df, aes(x = "Vm", y = Vm),size= 2.3)
+p
 # Q3 #
 # As you can see there is a problem, many points overlay each others.
 # Add to the ggplot object the function scale_y_continuous(trans = "log2"), to change the scale of the 
 # y-axis and to see better the data. 
 # look at Ex 5 2023-24 plot 3 to see the expected plot
 
-ENTER CODE HERE
-
-
+p <- p + scale_y_continuous(trans = "log2")
+p
 # Q4 #
 # A different method will be to use geom_dotplot.
 # use it instead of geom_point to nicely show the data
@@ -103,8 +100,12 @@ ENTER CODE HERE
 # use nudge_y = 3 in geom_text
 # look at Ex 5 2023-24 plot 4 to see the expected plot
 
-ENTER CODE HERE
-
+p<- ggplot(data = col_means, aes (x= parameters ,y = avg))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label=avg), nudge_y = 5)+
+  geom_dotplot(data = df, aes(x = "Km", y = Km), stackdir = "center",binaxis = "y",dotsize = 0.5) +
+  geom_dotplot(data = df, aes(x = "Vm", y = Vm), stackdir = "center",binaxis = "y",dotsize = 0.5)
+p
 
 # Bonus: add error bars to the plot
 # Hint use geom_errorbar()
