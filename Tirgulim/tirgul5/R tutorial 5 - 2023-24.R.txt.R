@@ -192,8 +192,3 @@ for (iris.paprmeter in names(iris[,1:4])) {
   print(iris.paprmeter)
   print(tapply(iris[[iris.paprmeter]], iris$Species, mean))
 }
-
-
-
-
-
