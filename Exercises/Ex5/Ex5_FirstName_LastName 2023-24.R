@@ -57,18 +57,17 @@ Analysis.results$data
 # Explore if there is any different between the groups.
 # Print the observed Km and Vmax parameters for each group
 ONPGGroupNames <- names(ONPG.df[-1])
-Mainlist <- lapply(ONPGGroupNames , function(ONPGGroupNames) {
-  result <-MM.function(data.frame(c(ONPG.df['ONPG'], ONPG.df[ONPGGroupNames])))
-  return(result$parameters)
+Q1list <- lapply(ONPGGroupNames , function(ONPGGroupNames) {
+  results <- MM.function(as.data.frame(c(ONPG.df['ONPG'], ONPG.df[ONPGGroupNames])))
+  print(results$parameters)
 })
-print(Mainlist)
 # Naturally there are differences in the observed Km and Vmax. 
 # Please plot the mean Km and the mean Vmax of all groups as a bar plot using ggplot.
 # Add a text above the bars to indicate the value
 # Hint: use geom_text, with nudge_y = 1.5
 # Use Ex 5 2023-24 plot 1.pdf to see the expected result
 library(ggplot2, help, pos = 2, lib.loc = NULL)
-col_means <- apply(do.call(rbind, Mainlist), 2, mean)
+col_means <- apply(do.call(rbind, Q1list), 2, mean)
 col_means <- data.frame(parameters = names(col_means), avg = col_means)
 p<- ggplot(data = col_means, aes (x= parameters ,y = avg))+
   geom_bar(stat = "identity")+
@@ -80,7 +79,7 @@ p
 # You will need to another layer of points using geom_point. 
 # In geom text use nudge_y = 2
 # look at Ex 5 2023-24 plot 2 to see the expected plot
-df <- as.data.frame(do.call(rbind, Mainlist))
+df <- as.data.frame(do.call(rbind, Q1list))
 p <- p + geom_point(data = df, aes(x = "Km", y = Km),size= 2.3)
 p <-p + geom_point(data = df, aes(x = "Vm", y = Vm),size= 2.3)
 p
@@ -113,8 +112,16 @@ p
 # ymax is almost the same: The average Km or Vmax + SD of the Km or Vmax
 # For more details: http://www.sthda.com/english/wiki/ggplot2-error-bars-quick-start-guide-r-software-and-data-visualization
 # look at Ex 5 2023-24 plot 5 to see the expected plot
+DFsd <- apply(df, 2, sd, na.rm = FALSE)
+DFmean <- apply(df, 2, mean, na.rm = FALSE)
 
-ENTER CODE HERE
+errors_km <- c(DFmean[1] - DFsd[1], DFmean[1] + DFsd[1])
+errors_vm <- c(DFmean[2] - DFsd[2], DFmean[2] + DFsd[2])
+
+p <- p+
+geom_errorbar(aes(x = 'Km', ymin = errors_km[1], ymax = errors_km[2]), size = 1.2)+
+geom_errorbar(aes(x = 'Vm', ymin = errors_vm[1], ymax = errors_vm[2]), size = 1.2)
+p
 
 # Q5 #
 # Plot the data for each group.
@@ -122,11 +129,27 @@ ENTER CODE HERE
 # Colors the points and lines based on the different groups.
 # Add to the ggplot object scale_y_continuous(trans = "log2")
 # look at Ex 5 2023-24 plot 6 to see the expected plot
+results_list <- lapply(col_names, function(col) {
+  results <- MM.function(data.frame(c(ONPG.df['ONPG'], ONPG.df[col])))
+  results$data$group <- col
+  return(results$data)
+})
+results_list <- do.call(rbind, results_list)
 
-ENTER CODE HERE
+
+p <- ggplot(data = ONPG.df[,-1]) + scale_y_continuous(trans = "log2")
+p <- ggplot() + scale_y_continuous(trans = "log2")+
+geom_line(data = results_data, aes(x = S, y = fitted_v, color = group), size = 1.2) +
+geom_point(data = results_data, aes(x = S, y = v, color = group), size = 3)
+p
+combined_plot <- combined_plot +
+  geom_line(data = results_data, aes(x = S, y = fitted_v, color = group), size = 1.2) +
+  geom_point(data = results_data, aes(x = S, y = v, color = group), size = 3)
+
 
 
 # Use facet_wrap() to show the results of each group in a subpanel 
 # Look at Ex 5 2023-24 plot 7 to see the expected plot
 
 ENTER CODE HERE
+
