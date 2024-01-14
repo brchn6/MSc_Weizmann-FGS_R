@@ -6,7 +6,8 @@
 
 # In this exercise you will explore enzymatic kinetics.
 # Load the data. Run this line of code:
-ONPG.df = readRDS("Exercises/Ex5/ONPG.rds")
+ONPG.df = readRDS("ONPG.rds")
+
 # Background about the OPNG.df, adopted from the renz pacakge:
 #In the University of Málaga, Enzymology is a second-year subject that all Biochemistry students 
 #must take. In the context of this subject, students carry out different experiments in the 
@@ -18,7 +19,7 @@ ONPG.df = readRDS("Exercises/Ex5/ONPG.rds")
 # as were presented in their reports.
 
 # Load the following function:
-MM.function = readRDS("Exercises/Ex5/MM.function.rds")
+MM.function = readRDS("MM.function.rds")
 
 # This function receives two-columns data and analyzed it using the non-linear least-squares fitting of the Michaelis-Menten equation.
 # For more information see: https://www.youtube.com/watch?v=7u2MkbsE_dw
@@ -129,7 +130,8 @@ p
 # Colors the points and lines based on the different groups.
 # Add to the ggplot object scale_y_continuous(trans = "log2")
 # look at Ex 5 2023-24 plot 6 to see the expected plot
-results_list <- lapply(col_names, function(col) {
+
+results_list <- lapply(ONPGGroupNames, function(col) {
   results <- MM.function(data.frame(c(ONPG.df['ONPG'], ONPG.df[col])))
   results$data$group <- col
   return(results$data)
@@ -137,19 +139,12 @@ results_list <- lapply(col_names, function(col) {
 results_list <- do.call(rbind, results_list)
 
 
-p <- ggplot(data = ONPG.df[,-1]) + scale_y_continuous(trans = "log2")
 p <- ggplot() + scale_y_continuous(trans = "log2")+
-geom_line(data = results_data, aes(x = S, y = fitted_v, color = group), size = 1.2) +
-geom_point(data = results_data, aes(x = S, y = v, color = group), size = 3)
+geom_line(data = results_list, aes(x = S, y = fitted_v, color = group), size = 1.2) +
+geom_point(data = results_list, aes(x = S, y = v, color = group), size = 3)
 p
-combined_plot <- combined_plot +
-  geom_line(data = results_data, aes(x = S, y = fitted_v, color = group), size = 1.2) +
-  geom_point(data = results_data, aes(x = S, y = v, color = group), size = 3)
-
 
 
 # Use facet_wrap() to show the results of each group in a subpanel 
 # Look at Ex 5 2023-24 plot 7 to see the expected plot
-
-ENTER CODE HERE
-
+p + facet_wrap(~ group , ncol =4)
