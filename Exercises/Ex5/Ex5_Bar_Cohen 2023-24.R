@@ -140,10 +140,11 @@ results_list <- do.call(rbind, results_list)
 
 
 p <- ggplot() + scale_y_continuous(trans = "log2")+
-geom_line(data = results_list, aes(x = S, y = fitted_v, color = group), size = 1.2) +
-geom_point(data = results_list, aes(x = S, y = v, color = group), size = 3)
+geom_line(data = results_list, aes(x = S, y = fitted_v, color = group), size = 0.8) +
+geom_point(data = results_list, aes(x = S, y = v, color = group), size = 3)+
+labs( x = "S", y = "V")
 p
-
+names(results_list)
 
 # Use facet_wrap() to show the results of each group in a subpanel 
 # Look at Ex 5 2023-24 plot 7 to see the expected plot
