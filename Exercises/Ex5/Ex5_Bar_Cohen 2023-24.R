@@ -147,4 +147,4 @@ p
 
 # Use facet_wrap() to show the results of each group in a subpanel 
 # Look at Ex 5 2023-24 plot 7 to see the expected plot
-p + facet_wrap(~ group , ncol =4)
+p + facet_wrap(~ group , ncol =3)
